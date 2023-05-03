@@ -1,0 +1,61 @@
+{% extends 'geral/base.html' %}
+<!-- {% load static %} -->
+
+{% block 'title' %}Edite sua tranção{% endblock %} 
+
+<!-- {% block 'head' %} {%endblock %}  -->
+
+{% block 'content' %}
+<div class="cotainer">
+  <div class="row">
+    
+    <div class="col-3"></div>
+    <div class="col-6">
+      <br>
+      <br>
+      <form  action="{% url 'transaction_save' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-2">
+          <label for="exampleInputEmail1" class="form-label">Data da transação</label>
+          <input name="date_done" type="datetime" class="form-control" id="exampleInputEmail1" value="{{date_formated}}">
+        </div>
+        <div class="mb-2">
+          <select class="form-select" aria-label="Default select example" name="stock">
+            <option selected value="{{transaction.stock.id}}">{{transaction.stock}}</option>
+            {% for s in stocks %}
+            <option value={{s.id}}>{{s.code}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-2">
+          <label for="exampleInputPassword1" class="form-label">Quantidade</label>
+          <input name="quantity_stock" type="number" class="form-control" id="exampleInputPassword1" value="{{quantity_stock}}">
+        </div>
+        <div class="mb-2">
+          <label for="exampleInputPassword1" class="form-label">Preço unitário</label>
+          <input name="unite_price" type="number" step="0.01" min="0" class="form-control" id="exampleInputPassword1" value="{{unit_price}}">
+        </div>
+        <div class="mb-2">
+          <select class="form-select" aria-label="Default select example" name="type_of">
+            <option selected>Operação {{transaction.type_of}}</option>
+            {% for op in types_transactions %}
+            <option value={{op.0}}>{{op.1}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-2">
+          <label for="exampleInputPassword1" class="form-label">Taxa</label>
+          <input name="brokerage" type="number" step="0.01" min="0" class="form-control" id="exampleInputPassword1" value="{{brokerage}}">
+        </div>
+        <button
+          type="submit"
+          class="btn btn-info"
+        >
+          Atualizar
+        </button>
+      </form>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+/* langing page */
+body{
+    background-color: #b23131;
+}
+.landing-1 {
+background-color: #ffffff;
+}
+.landing {
+background-color: #1e90ff;
+color: white;
+}
+#btn_signup {
+background-color: #051b32;
+color: #ffffff;
+}
+
+footer {
+background-color: #b23131;
+color: #ffffff;
+}
+/* end landing page */
+
