@@ -6,6 +6,11 @@
 
 <body style="background-color: #1e90ff;">
     <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
         <form action="{% url 'user_login' %}" method="POST">
             {% csrf_token %}
             <br>

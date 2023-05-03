@@ -3,40 +3,60 @@
 {% block 'title' %}Todas as suas transações{% endblock %}
 
 {% block 'content' %}
+<div class="container">
+  <div class="row my-5">
+    <br>
+    <br>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+    <h5 class="text-center">Procurar Ativo</h5>
+    <br>
+    
+    <form action="{% url 'find_stock' %}" method="POST">
+      <div class="input-group flex-nowrap">
+        <input name="stock" type="text" class="form-control" placeholder="Digite o código do ativo" aria-describedby="addon-wrapping">{% csrf_token %}
+        <input type="submit" class="input-group-btn btn btn-info" id="addon-wrapping" value="Buscar">
+      </div>
+    </form>
+</div>
 <div class="card">
-    <h5 class="card-header">Todas as transações</h5>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Ativo</th>
-                    <th scope="col">Quantidade</th>
-                    <th scope="col">Preço und.</th>
-                    <th scope="col">Tipo transação</th>
-                    <th scope="col">Taxas</th>
-                    <th scope="col">Valor total</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for t in transactions %}
-                  <tr>
-                    <th scope="row">{{t.date_done}}</th>
-                    <td>{{t.stock}}</td>
-                    <td>{{t.quantity_stock}}</td>
-                    <td>{{t.unite_price}}</td>
-                    <td>{{t.type_of}}</td>
-                    <td>{{t.brokerage}}</td>
-                    <td>R${{t.valor_total_transaction}}</td>
-                    <td><a href="{% url 'transaction_detail' t.id %}" class="btn btn-sm btn-primary">Detalhes</a></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-        </div>
-    </div>
+<h5 class="card-header text-center">Todas as transações</h5>
+<div class="card-body">
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Ativo</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Preço und.</th>
+            <th scope="col">Tipo transação</th>
+            <th scope="col">Taxas</th>
+            <th scope="col">Valor total</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in transactions %}
+          <tr>
+            <th scope="row">{{t.date_done}}</th>
+            <td>{{t.stock}}</td>
+            <td>{{t.quantity_stock}}</td>
+            <td>{{t.unite_price}}</td>
+            <td>{{t.type_of}}</td>
+            <td>{{t.brokerage}}</td>
+            <td>R${{t.valor_total_transaction}}</td>
+            <td><a href="{% url 'transaction_detail' t.id %}" class="btn btn-sm btn-primary">Detalhes</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+</div>
+</div>
 </div>
 {% endblock %}
 

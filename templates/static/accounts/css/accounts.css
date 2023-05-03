@@ -6,17 +6,23 @@ body{
 background-color: #ffffff;
 }
 .landing {
-background-color: #1e90ff;
+background-color:#212529;
 color: white;
 }
 #btn_signup {
-background-color: #051b32;
+background-color: #1e90ff;
 color: #ffffff;
 }
 
 footer {
 background-color: #b23131;
 color: #ffffff;
+}
+.logo-b3{
+    height: 40;
+}
+img{
+    max-height: 40;
 }
 /* end landing page */
 

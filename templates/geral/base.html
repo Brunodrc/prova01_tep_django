@@ -18,10 +18,24 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-3">
+              <li class="nav-item px-3">
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
               </li>
+              {% if user_loged %}
+              <li class="nav-item px-3">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                      Seja bem-vind@, {{user_loged}}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Edite seu perfil</a></li>
+                    <li><a class="dropdown-item" href="#">Messages</a></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
             </ul>
           </div>
           {% if user_loged %}

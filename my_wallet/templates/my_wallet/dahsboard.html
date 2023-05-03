@@ -9,35 +9,8 @@
 {% endblock %}
 
 {% block 'content' %}
-<nav class="navbar navbar-light bg-light p-3">
-    <div class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
-        <a class="navbar-brand" href="#">
-            Investorys
-        </a>
-        <button class="navbar-toggler d-md-none collapsed mb-3" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-    <div class="col-12 col-md-4 col-lg-2">
-        <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search">
-    </div>
-    <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
-        <div class="mr-3 mt-1">
-            <a class="github-button" href="https://github.com/themesberg/simple-bootstrap-5-dashboard" data-color-scheme="no-preference: dark; light: light; dark: light;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star /themesberg/simple-bootstrap-5-dashboard">Star</a>
-        </div>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                Seja bem-vind@, {{user_loged}}
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#">Edite seu perfil</a></li>
-              <li><a class="dropdown-item" href="#">Messages</a></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-          </div>
-    </div>
-  </nav>
   <div class="container-fluid">
+    
     <div class="row">
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <!-- sidebar -->
@@ -67,25 +40,38 @@
               </div>
         </nav>
         <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Overview</li>
-                </ol>
-              </nav>
+          <br>
+          {% if messages %}
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
               <h1 class="h2">Dashboard</h1>
               <p>Esta é a homepage com as principais informações do seu histórico de ações.</p> 
-              <h5 class="card-header">Lugar da tabela com gráfico</h5>
+              <h5 class="card-header">total ações</h5>
                 <div class="card-body">
-                  <p>Você possui um total de {{total_stocks}}</p>
+                  <!-- <p>Você possui um total de {{total_stocks}}</p> -->
+                  <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome da empresa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock in stocks %}
+                            <tr>
+                                <td>{{ stock.code }}</td>
+                                <td>{{ stock.name_enterprise }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
                     <!-- <div id="traffic-chart">
                         <script src="{% static 'my_wallet/js/my_wallet.js' %}"></script>
                     </div> -->
                 </div>
-                <div class="row">
-                    <div class="col mb-4 mb-lg-0">
-                        <p>total de ações de cada tipo</p>
-                    </div>             
+
         </main>
     </div>
   </div>
