@@ -63,8 +63,9 @@ def transaction_save(request):
     elif request.method == "POST":
         stock_req = Stock.objects.get(pk=request.POST.get('stock'))
         investor = Investor.objects.get(user=request.user)
+        date =request.POST.get('date_done')
         transaction = Transaction(
-            date_done= request.POST.get('date_done'), 
+            date_done= date.timezone.strftime('%Y-%m-%d %H:%M:%S'), 
             stock= stock_req, 
             quantity_stock= int(request.POST.get('quantity_stock')), 
             unite_price= request.POST.get('unite_price').replace(',', '.'), 
