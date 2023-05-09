@@ -38,9 +38,7 @@ def home(request):
 
 @login_required
 def transaction_new(request):
-    if request.method == 'GET':
-        return render(request, 'my_wallet/transaction.html')
-    elif request.method == "POST":
+    
         investor = Investor.objects.get(user=request.user)
         stocks = Stock.objects.all()
     
