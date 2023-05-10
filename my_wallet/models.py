@@ -29,7 +29,7 @@ class Transaction(models.Model):
         ('C', 'Compra'),
         ('V', 'Venda'),
     )
-    date_done = models.DateTimeField(default=datetime.now, blank=True)
+    date_done = models.DateField(default=datetime.now, blank=True)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     quantity_stock = models.PositiveIntegerField()
     unite_price = models.FloatField()

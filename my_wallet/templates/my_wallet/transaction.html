@@ -17,7 +17,7 @@
         {% csrf_token %}
         <div class="mb-2">
           <label for="exampleInputEmail1" class="form-label">Data da transação</label>
-          <input name="date_done" type="datetime" class="form-control" id="exampleInputEmail1" value="{{date_done}}">
+          <input name="date_done" type="date" class="form-control" id="exampleInputEmail1" value="{{date_done}}">
         </div>
         <div class="mb-2">
           <select class="form-select" aria-label="Default select example" name="stock">
@@ -44,7 +44,7 @@
           </select>
         </div>
         <div class="mb-2">
-          <label for="exampleInputPassword1" class="form-label">Taxa</label>
+          <label for="exampleInputPassword1" class="form-label">Taxa B3</label>
           <input name="brokerage" type="text" class="form-control" id="exampleInputPassword1">
         </div>
         <button

@@ -48,25 +48,21 @@
           {% endif %}
               <h1 class="h2">Dashboard</h1>
               <p>Esta é a homepage com as principais informações do seu histórico de ações.</p> 
-              <h5 class="card-header">total ações</h5>
+              
                 <div class="card-body">
+                  <div class="row">
+                  {% for stock, total in stocks.items %}
+                  <div class="card text-white bg-info mx-1 mb-2" style="max-width: 18rem;">
+                    <div class="card-header text-center">Ativo</div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{stock}}</h5>
+                      <p class="card-text">Quantidade total: {{total}}</p>
+                    </div>
+                  </div>
+                  {% endfor %}
+                  </div>
                   <!-- <p>Você possui um total de {{total_stocks}}</p> -->
-                  <table>
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nome da empresa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for stock in stocks %}
-                            <tr>
-                                <td>{{ stock.code }}</td>
-                                <td>{{ stock.name_enterprise }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-            </table>
+            
                     <!-- <div id="traffic-chart">
                         <script src="{% static 'my_wallet/js/my_wallet.js' %}"></script>
                     </div> -->

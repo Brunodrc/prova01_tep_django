@@ -23,35 +23,43 @@ def home(request):
     #busca operaões de compra e venda
         transacoes = Transaction.objects.filter(investor=investor)
 #listar as ações do usuaro
-        stocks =[]
+        stocks ={}
         for transation in transacoes:
-            if transation.stock not in stocks:
-                stocks.append(transation.stock)
+            transation.stock, transation.quantity_stock, transation.type_of
+            if transation.type_of == 'C':
+                if transation.stock in stocks:
+                    stocks[transation.stock] += transation.quantity_stock
+                else:
+                    stocks[transation.stock] = transation.quantity_stock
+            elif transation.type_of == 'V':
+                if transation.stock in stocks:
+                    stocks[transation.stock] -= transation.quantity_stock
+                else:
+                    stocks[transation.stock] = -transation.quantity_stock
 
         context = {
             'user_loged':user,
             'transactions': transactions,
             'stocks': stocks
         }
+        print(stocks)
         messages.add_message(request, constants.SUCCESS, "Logado com Sucesso!")
         return render(request, 'my_wallet/dahsboard.html', context=context)
 
 @login_required
 def transaction_new(request):
-    if request.method == 'GET':
-        return render(request, 'my_wallet/transaction.html')
-    elif request.method == "POST":
-        investor = Investor.objects.get(user=request.user)
-        stocks = Stock.objects.all()
     
-        context = {
-            'date_done': timezone.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'investor': investor,
-            'user_loged': request.user,
-            'stocks': stocks,
-            'types_transactions': Transaction.TYPE_OF_TRANSACTION
-        }
-        return render(request, 'my_wallet/transaction.html', context=context) 
+    investor = Investor.objects.get(user=request.user)
+    stocks = Stock.objects.all()
+
+    context = {
+        'date_done': timezone.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'investor': investor,
+        'user_loged': request.user,
+        'stocks': stocks,
+        'types_transactions': Transaction.TYPE_OF_TRANSACTION
+    }
+    return render(request, 'my_wallet/transaction.html', context=context) 
 
 
 @login_required
@@ -63,8 +71,9 @@ def transaction_save(request):
     elif request.method == "POST":
         stock_req = Stock.objects.get(pk=request.POST.get('stock'))
         investor = Investor.objects.get(user=request.user)
+        date = request.POST.get('date_done')
         transaction = Transaction(
-            date_done= request.POST.get('date_done'), 
+            date_done= date, 
             stock= stock_req, 
             quantity_stock= int(request.POST.get('quantity_stock')), 
             unite_price= request.POST.get('unite_price').replace(',', '.'), 
@@ -104,7 +113,7 @@ def transaction_detail(request, transactiont_id):
 @login_required
 def transaction_edit(request, transactiont_id):
     transaction = Transaction.objects.get(pk=transactiont_id)
-    date_formated = transaction.date_done.strftime('%Y-%m-%d %H:%M:%S')
+    date_formated = transaction.date_done
     unit_price = transaction.unite_price
     quantity_stock = int(transaction.quantity_stock)
     brokerage = transaction.brokerage
